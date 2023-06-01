@@ -3,7 +3,7 @@
 This is my stack. The starting point of my side projects.
 In this Nextjs Project, you will find the complete schemes for authentification, Oauth, and data handling.
 
-## WHY ???
+## WHY ?
 
 Developing a side project is very time-consuming and I find out that the majority of the time I passed creating websites was always with the users and data management. 
 I needed to create a template with data management all configured with all password lost, email confirmation, and account deletion thing... So when I want to create a side project, all is working and I can focus on creating the actual idea, and not rewriting the same things again
