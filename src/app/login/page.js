@@ -1,28 +1,34 @@
 'use client';
 
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {pb} from "@/lib/pocketbase";
+import { redirect } from "next/navigation";
 
 export default function Login() {
     const email = useRef()
-    const password1 = useRef()
-    const password2 = useRef()
+    const password = useRef()
+    const [loading,setLoading] = useState(true)
+    useEffect(()=>{
+      if(pb.authStore.isValid){
+        redirect("/")
+      }
+      setLoading(false)
+    },[])
 
-    function register(email,pass1,pass2){
-        if (pass1 != pass2)
+    async function login(email,pass1){
+        let authUser;
+        setLoading(true)
+        authUser = await pb.collection("users").authWithPassword(email,pass1)
+        console.log(authUser);
 
-        const authUser = pb.collection("users").authWithPassword(email,pass1)
+    setLoading(true)
     }
-    func
-
     if (pb.authStore.isValid){
-        return (<main>
-                <h1>Authenticated</h1>
-                <button onClick={logout} >Logout</button>
-            </main>
-
-            )
+        redirect("/");
     }
+    if (loading){
+        return (<h1>Loading</h1>)
+      }
 
     return (
         <main>
@@ -34,17 +40,15 @@ export default function Login() {
                     <input ref={email} type="email" id="email" name="email" />
                 </div>
                 <div>
-                    <label form={"password1"}>password</label>
-                    <input ref={password1} type="password" id="password1" name="password1" />
-                </div>
-                <div>
-                    <label form={"password2"}>Repeat your password</label>
-                    <input ref={password2} type="password" id="password2" name="password2" />
+                    <label form={"password"}>password</label>
+                    <input ref={password} type="password" id="password" name="password" />
                 </div>
                 <button onClick={(event)=>{
                     event.preventDefault()
-                    register(email.current.value,password1.current.value,password2.current.value)
+                    login(email.current.value,password.current.value)
                 }}>Login</button>
+                <a href="/register" role="button">Register</a>
+                
             </form>
 
         </main>
