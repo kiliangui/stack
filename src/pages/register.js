@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation';
 import {useEffect, useRef, useState} from "react";
 import {pb} from "@/lib/pocketbase";
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
     const email = useRef()
@@ -10,16 +11,18 @@ export default function Register() {
     const [errors,setErrors] = useState()
 
     const [loading,setLoading] = useState(true)
+
+    const { push } = useRouter();
   useEffect(()=>{
     if(pb.authStore.isValid){
-      redirect("/")
+      push("/")
     }
     
     setLoading(false)
   },[errors])
 
   if (pb.authStore.isValid){
-    redirect("/");
+    push("/");
 }
 
   if (loading){
@@ -49,9 +52,7 @@ export default function Register() {
 
             }catch (err){
                 console.log("error");
-                
                 setErrors(err.data.data)
-                if()
                 console.log(err.data.data);
             }
         setLoading(false)
@@ -67,6 +68,9 @@ export default function Register() {
             <p>yolo</p>
             {errors?<p>{
                 
+                Object.keys(errors).length?Object.keys(errors).map(element => {
+                    return errors[element].message
+                }):<>Error : Failed to authenticate</>
                 
                 }</p>:<></>}
             <form>

@@ -30,6 +30,7 @@ export default function Home() {
         setUser(null)
         
       }}>Logout</button>
+      <a href="/dashboard">Dashboard</a>
       </>
       :
       <>
