@@ -1,4 +1,4 @@
-import { pb } from '@/lib/pocketbase'
+import { getAvatar, pb } from '@/lib/pocketbase'
 import Image from 'next/image'
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -26,20 +26,13 @@ export default function Home() {
   }
   return (
     <main >
-      <h1>Landing page</h1>
-      <p>This page serve as landing page</p>
-
+      <h1>Dashboard page</h1>
+      <p>This page is reserved at logged users</p>
       <h2>Authenticated</h2>
       <button onClick={()=>{
-        pb.authStore.clear()
-        setUser(null)
-        
+        push("/logout")
       }}>Logout</button>
-    <button onClick={()=>{
-      pb.collection("users").delete(pb.authStore.model.id)
-      pb.authStore.clear()
-      push("/")
-    }}>Delete account</button>
+    <a href="/account">Account settings</a>
         
     </main>
   )

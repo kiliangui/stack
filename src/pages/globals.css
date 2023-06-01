@@ -25,3 +25,21 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+#selectfiles{
+
+  position: absolute;
+  height: 100%;
+  background-color: rgba(0,0,0,0);
+  border: 0px;
+  border-radius: 20rem;
+
+}
+#selectfiles:hover{
+  background-color: rgba(0,0,0,.2);
+}
+#selectfiles:hover::before{
+  content: "Select";
+  height: 32px;
+  width: 32px;
+  opacity: 100%;
+}

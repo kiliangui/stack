@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import '@picocss/pico'
+import UnderConstruct from './underConstruct'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -11,3 +12,7 @@ export const metadata = {
 export default function App({ Component, pageProps }) {
     return <Component {...pageProps} />;
   }
+
+//  export default function App({ Component, pageProps }) {
+//    return <UnderConstruct/>;
+//  }
