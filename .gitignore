@@ -34,5 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# pocketbase
-pocketbase*
+# pocketbase_s
+pocketbase_s

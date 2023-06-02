@@ -50,7 +50,7 @@ You can then go to ["PocketBase.io"]("https://pocketbase.io/") to download the e
 To start the project you need to start the database with :
 
 ```bash
-./pocketbase serve
+./pocketbase_s serve
 ```
 
 then you can start the development web server with : 

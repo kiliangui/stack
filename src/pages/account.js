@@ -3,11 +3,17 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import {ChangePasswordDialog} from "@/components/Dialogs/changePasswordDialog";
+import {DeleteAccountDialog} from "@/components/Dialogs/deleteAccountDialog";
 
 export default function Home() {
-  const [loading,setLoading] = useState(true)
-  const [user,setUser] = useState()
-  const deleteAccountDialog = useRef();
+    const [loading,setLoading] = useState(true)
+    const [user,setUser] = useState()
+    const deleteAccountDialog = useRef();
+    const changePasswordDialog = useRef()
+
+
+
   const pdpimg = useRef()
   const { push } = useRouter();
   useEffect(()=>{
@@ -29,23 +35,10 @@ export default function Home() {
     push("/login")
   }
   return (
-    <main >
-      <dialog className="flex-col" ref={deleteAccountDialog} id="deleteAccountDialog">
-        <form method="dialog">
-                <h2>Delete account</h2>
-                <p>Are you sure you want to delete your account ?</p>
+    <main>
+        <DeleteAccountDialog ref={deleteAccountDialog}/>
+        <ChangePasswordDialog ref={changePasswordDialog}/>
 
-                <menu className='flex'>
-                <button onClick={(e)=>{
-                  e.preventDefault()
-                    pb.collection("users").delete(pb.authStore.model.id)
-                    pb.authStore.clear()
-                    }}>Yes, i'm sure</button>
-                <button>Cancel</button>
-                </menu>
-        </form>
-                
-      </dialog>
       <h1>Account page</h1>
       <p>This page is reserved at logged users</p>
       <div className='flex'>
@@ -71,6 +64,11 @@ export default function Home() {
 
       <div>
       <h2>Welcome {user.username?user.username:user.email}</h2>
+          <p>{user.email}</p>
+          <button onClick={()=>{
+              console.log(changePasswordDialog)
+              changePasswordDialog.current.showModal();
+          }}>Change password</button>
       </div>
       </div>
       
