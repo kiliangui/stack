@@ -6,33 +6,14 @@ import { useRouter } from 'next/navigation';
 import {ChangePasswordDialog} from "@/components/Dialogs/changePasswordDialog";
 import {DeleteAccountDialog} from "@/components/Dialogs/deleteAccountDialog";
 
-export default function Home() {
-    const [loading,setLoading] = useState(true)
-    const [user,setUser] = useState()
+export default function Home({user}) {
     const deleteAccountDialog = useRef();
     const changePasswordDialog = useRef()
-
-
-
-  const pdpimg = useRef()
+  const pdpimg = useRef();
   const { push } = useRouter();
-  useEffect(()=>{
-    if(!user && pb.authStore.isValid){
-      setUser(pb.authStore.model)
-      console.log(user);
-    }
-    setLoading(false)
-    if(!loading && !pb.authStore.isValid){
-        push("/login")
-    }
-  },[user])
-  if(!loading && !pb.authStore.isValid){
-    push("/login")
-}
-  if (loading){
-    return (<h1>Loading</h1>)
-  }else if (!user){
-    push("/login")
+
+  if(!user) {
+      push("/login")
   }
   return (
     <main>

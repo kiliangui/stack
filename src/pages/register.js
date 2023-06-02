@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import {pb} from "@/lib/pocketbase";
 import { useRouter } from 'next/navigation';
 
-export default function Register() {
+export default function Register({user,setUser}) {
     const email = useRef()
     const password1 = useRef()
     const password2 = useRef()
@@ -13,21 +13,10 @@ export default function Register() {
     const [loading,setLoading] = useState(true)
 
     const { push } = useRouter();
-  useEffect(()=>{
-    if(pb.authStore.isValid){
+    if(user){
       push("/")
     }
-    
-    setLoading(false)
-  },[errors])
 
-  if (pb.authStore.isValid){
-    push("/");
-}
-
-  if (loading){
-    return (<h1>Loading</h1>)
-  }
 
     async function register(email,pass1,pass2){
         console.log("register");
@@ -47,8 +36,10 @@ export default function Register() {
                 console.log(pb.authStore.isValid);
                 if (!pb.authStore.isValid){
                     setError("Erreur")
-                    
                 }
+                setUser(authUser)
+
+                push("/dashboard")
 
             }catch (err){
                 console.log("error");
@@ -56,7 +47,8 @@ export default function Register() {
                 console.log(err.data.data);
             }
         setLoading(false)
-        
+
+
         
         //await pb.collection('users').requestVerification(email)
 

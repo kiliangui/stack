@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import {pb} from "@/lib/pocketbase";
 import { useRouter } from 'next/navigation';
 
-export default function Login() {
+export default function Login({user,setUser}) {
     const email = useRef()
     const password = useRef()
     const resetDialog = useRef()
@@ -18,31 +18,29 @@ export default function Login() {
     useEffect(()=>{
       
       setLoading(false)
-      if(pb.authStore.isValid){
-        push("/")
-      }
+
                  
     },[errors])
 
+    if(user){
+        push("/dashboard")
+    }
     async function login(email,pass1){
         let authUser;
         setLoading(true)
         try{
             authUser = await pb.collection("users").authWithPassword(email,pass1)
+            setUser(authUser)
+            push("dashboard")
         }catch (err){
             console.log("error");
             setErrors(err.data.data)
             console.log(err.data);
-            
-                    
                 }
 
     setLoading(false)
     }
 
-    if(pb.authStore.isValid){
-        push("/")
-      }
     if (loading){
         return (<h1>Loading</h1>)
       }
