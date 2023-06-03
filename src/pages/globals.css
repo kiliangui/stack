@@ -25,6 +25,10 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+main{
+  padding-top: 4rem;
+}
 #selectfiles{
 
   position: absolute;

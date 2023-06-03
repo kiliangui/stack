@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {pb} from "@/lib/pocketbase";
+import {getAvatar, pb} from "@/lib/pocketbase";
 export function Header({user}){
-    return <header className="flex justify-between items-center">
+    return <header className=" fixed w-[100vw] flex justify-between items-center">
         <a href="/">
             <h1>Website</h1>
         </a>
@@ -16,7 +16,7 @@ export function Header({user}){
                             <a href={"/dashboard"}>Dashboard</a>
                         </li>
                         <li>
-                            <a href={"/account"}>Account</a>
+                            <a href={"/account"}><img className={"h-12 w-12 rounded-full"} src={getAvatar(user)}/></a>
                         </li>
                     </>
                     :

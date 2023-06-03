@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 
-export default function Login() {
+export default function Login({setUser}) {
     const { push } = useRouter();
     useEffect(()=>{
         pb.authStore.clear()
-        push("/login")
+        setUser(null);
+        push("/")
     },[])
     
 }
