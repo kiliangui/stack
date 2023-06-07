@@ -56,6 +56,12 @@ export default function Home({user}) {
           }}>Change password</button>
       </div>
           <button onClick={async ()=>{
+              //TODO : faire les try catch et remonter les erreurs.
+              try{
+
+                await pb.collection('users').unlinkExternalAuth(user.id,"twitter")
+              }catch (e) {
+              }
               await pb.collection("users").authWithOAuth2({provider:"twitter"})
               console.log("done")
               const result = await pb.collection('users').listExternalAuths(
