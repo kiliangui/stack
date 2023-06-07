@@ -1,7 +1,5 @@
 import { getAvatar, pb } from '@/lib/pocketbase'
-import Image from 'next/image'
-import { redirect } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import {ChangePasswordDialog} from "@/components/Dialogs/changePasswordDialog";
 import {DeleteAccountDialog} from "@/components/Dialogs/deleteAccountDialog";
@@ -24,7 +22,7 @@ export default function Home({user}) {
       <p>This page is reserved at logged users</p>
       <div className='flex'>
         <div className='relative w-48 h-48'>
-          <img ref={pdpimg} id="pdp" className=' w-full h-full hover:opacity-50 object-cover rounded-[20rem]' src={user.avatar?getAvatar(user):"https://picsum.photos/536/354"}/>
+          <img ref={pdpimg} id="pdp" alt ="photo de profil" className=' w-full h-full hover:opacity-50 object-cover rounded-[20rem]' src={user.avatar?getAvatar(user):"https://picsum.photos/536/354"}/>
 
 
 
@@ -35,9 +33,8 @@ export default function Home({user}) {
             for (let file of event.target.files) {
               formData.append('avatar', file);
           }
-          const record = await pb.collection('users').update(user.id, formData);
-
-          pdpimg.current.setAttribute("src",getAvatar(pb.authStore.model))
+                await pb.collection('users').update(user.id, formData);
+                pdpimg.current.setAttribute("src",getAvatar(pb.authStore.model))
 
           }} type="file" className='hidden' id="selectedFile"/>
           <button type="button" onClick={()=>{
@@ -67,7 +64,6 @@ export default function Home({user}) {
               const result = await pb.collection('users').listExternalAuths(
                   pb.authStore.model.id
               );
-              let last = "";
               let min = false;
               let minid = 0;
               for (const item of result) {
